@@ -1,3 +1,7 @@
+const bodyChecker = require('../utils/bodyChecker');
+
+//route controllers
+
 exports.user = (req, res) => {
   res.status(200).json({
     message: 'My Rule-Validation API',
@@ -9,4 +13,20 @@ exports.user = (req, res) => {
       mobile: '08023346376',
     },
   });
+};
+
+exports.validateRule = (req, res) => {
+  if (
+    !bodyChecker.payloadChecker(req.body) ||
+    !bodyChecker.ruleChecker(req.body.rule) ||
+    !bodyChecker.dataChecker(req.body.data)
+  ) {
+    return res.status(400).json({
+      message: 'Invalid json payload sent with HTTP POST request',
+      status: 'error',
+      data: null,
+    });
+  }
+
+  res.send('done');
 };
