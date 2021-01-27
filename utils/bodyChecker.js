@@ -1,10 +1,14 @@
 //data checkers
 
 exports.payloadChecker = (payload) => {
-  if (!payload || !payload.rule || !payload.data) {
-    return false;
+  if (!payload || payload.constructor.name !== 'Object') {
+    return 'payload';
+  } else if (!payload.rule) {
+    return 'rule';
+  } else if (!payload.data) {
+    return 'data';
   } else {
-    return true;
+    return 'valid';
   }
 };
 
@@ -14,21 +18,22 @@ exports.dataChecker = (data) => {
     data.constructor.name === 'Array' ||
     data.constructor.name === 'String'
   ) {
-    return true;
+    return 'valid';
   } else {
-    return false;
+    return 'data';
   }
 };
 
 exports.ruleChecker = (rule) => {
-  if (
-    rule.constructor.name !== 'Object' ||
-    !rule.field ||
-    !rule.condition ||
-    !rule.condition_value
-  ) {
-    return false;
+  if (rule.constructor.name !== 'Object') {
+    return 'rule';
+  } else if (!rule.field) {
+    return 'field';
+  } else if (!rule.condition) {
+    return 'condition';
+  } else if (!rule.condition_value) {
+    return 'condition_value';
   } else {
-    return true;
+    return 'valid';
   }
 };
