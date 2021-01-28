@@ -4,10 +4,4 @@ const router = express.Router();
 
 router.get('/', indexController.user);
 
-router.post(
-  '/validate-rule',
-  indexController.checkBody,
-  indexController.validateRule
-);
-
 module.exports = router;
